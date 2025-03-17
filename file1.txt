@@ -1,10 +1,43 @@
-# Database Configuration
-spring.datasource.url=jdbc:mysql://localhost:3306/mydatabase
-spring.datasource.username=root
-spring.datasource.password=yourpassword
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-# JPA Hibernate Properties
-spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
+import java.util.List;
+
+@RestController
+@RequestMapping("/products")
+public class ProductController {
+    
+    @Autowired
+    private ProductService productService;
+
+    // Create Product
+    @PostMapping
+    public Product addProduct(@RequestBody Product product) {
+        return productService.saveProduct(product);
+    }
+
+    // Get All Products
+    @GetMapping
+    public List<Product> getAllProducts() {
+        return productService.getAllProducts();
+    }
+
+    // Get Product by ID
+    @GetMapping("/{id}")
+    public Product getProductById(@PathVariable Long id) {
+        return productService.getProductById(id);
+    }
+
+    // Update Product
+    @PutMapping("/{id}")
+    public Product updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
+        return productService.updateProduct(id, updatedProduct);
+    }
+
+    // Delete Product
+    @DeleteMapping("/{id}")
+    public String deleteProduct(@PathVariable Long id) {
+        productService.deleteProduct(id);
+        return "Product deleted successfully";
+    }
+}
