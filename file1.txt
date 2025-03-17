@@ -1,45 +1,29 @@
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.Optional;
+import jakarta.persistence.*;
 
-@Service
-public class ProductService {
+@Entity
+public class Product {
     
-    @Autowired
-    private ProductRepository productRepository;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private double price;
 
-    // Create Product
-    public Product saveProduct(Product product) {
-        return productRepository.save(product);
+    // Constructors
+    public Product() {}
+    
+    public Product(String name, double price) {
+        this.name = name;
+        this.price = price;
     }
 
-    // Get All Products
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
-    }
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    // Get Product by ID
-    public Product getProductById(Long id) {
-        return productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    // Update Product
-    public Product updateProduct(Long id, Product updatedProduct) {
-        Optional<Product> existingProduct = productRepository.findById(id);
-
-        if (existingProduct.isPresent()) {
-            Product product = existingProduct.get();
-            product.setName(updatedProduct.getName());
-            product.setPrice(updatedProduct.getPrice());
-            return productRepository.save(product);
-        } else {
-            throw new RuntimeException("Product not found");
-        }
-    }
-
-    // Delete Product
-    public void deleteProduct(Long id) {
-        productRepository.deleteById(id);
-    }
+    public double getPrice() { return price; }
+    public void setPrice(double price) { this.price = price; }
 }
