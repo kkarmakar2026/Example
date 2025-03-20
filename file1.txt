@@ -1,29 +1,91 @@
-import jakarta.persistence.*;
+Step 1 
+npm install @angular/cli -g
 
-@Entity
-public class Product {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private double price;
+Step 2 create new project
 
-    // Constructors
-    public Product() {}
-    
-    public Product(String name, double price) {
-        this.name = name;
-        this.price = price;
+ng new angular-httpclient-app
+
+step 3 
+
+cd angular-httpclient-app
+
+step 4 
+
+npm install bootstrap
+
+step 5 update angular.json file
+
+"styles":[
+	"node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.css"
+]
+
+step 6 create the components
+
+ng g c employee-create
+ng g c employee-edit
+ng g c employee-list
+
+step 7 configure json server
+
+npm install -g json-server
+
+step 8 create and update db.json file inside the server folder
+
+{
+  "employees": [
+    {
+      "id": 1,
+      "name": "Sanjeev",
+      "email": "java@java.com",
+      "phone": "94929292929"
+    },
+    {
+      "id": 2,
+      "name": "Black Widow",
+      "email": "black-widow@mcu.com",
+      "phone": "001-123-4568"
+    },
+    {
+      "name": "Sanju",
+      "email": "sana@sana.com",
+      "phone": "94927488448",
+      "id": 5
+    },
+    {
+      "name": "Manohar",
+      "email": "manohar@cgi.com",
+      "phone": "8980989098",
+      "id": 6
     }
-
-    // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
+  ]
 }
+
+npm i json-server ts-node --save-dev (mandatory for json server)
+
+step 9 start json server
+json-server --watch db.json
+
+npm run server  //localhost:3000
+
+Step 10 update routing.module.ts file
+
+step 11 update app.module.ts
+
+step 12 create class / interface 
+
+step 13 create the rest api service
+
+creating the employee data
+update the html
+update the ts file
+
+like this all the modules
+
+step 14 update package.json file
+
+"server": "ts-node ./server/server.ts"
+
+select * from employee where id = 1; listing the data
+
+delete from employee where id = 1;
